@@ -8,3 +8,4 @@ Comandos útiles de GIT
    empiezo a tener sueño
 5.- git checkout -- .
 6.- git log
+--Voy a generar una nueva Rama con esta línea y luego la eliminaré
