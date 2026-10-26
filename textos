@@ -44,3 +44,8 @@ opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxvideo/vbox_main
 757-/**
 758- * Timer callback function for standard timers.
 759- *
+
+grep -n -E 'RHEL|REDHAT|EL9|EL_MAJOR|EL_MINOR' \
+  /lib/modules/$(uname -r)/build/include/generated/uapi/linux/version.h \
+  /lib/modules/$(uname -r)/build/include/linux/version.h \
+  /lib/modules/$(uname -r)/build/include/generated/autoconf.h 2>/dev/null
