@@ -49,3 +49,12 @@ grep -n -E 'RHEL|REDHAT|EL9|EL_MAJOR|EL_MINOR' \
   /lib/modules/$(uname -r)/build/include/generated/uapi/linux/version.h \
   /lib/modules/$(uname -r)/build/include/linux/version.h \
   /lib/modules/$(uname -r)/build/include/generated/autoconf.h 2>/dev/null
+
+
+/lib/modules/5.14.0-687.36.1.el9_8.x86_64/build/include/generated/uapi/linux/version.h:6:#define RHEL_MAJOR 9
+/lib/modules/5.14.0-687.36.1.el9_8.x86_64/build/include/generated/uapi/linux/version.h:7:#define RHEL_MINOR 8
+/lib/modules/5.14.0-687.36.1.el9_8.x86_64/build/include/generated/uapi/linux/version.h:8:#define RHEL_RELEASE_VERSION(a,b) (((a) << 8) + (b))
+/lib/modules/5.14.0-687.36.1.el9_8.x86_64/build/include/generated/uapi/linux/version.h:9:#define RHEL_RELEASE_CODE 2312
+/lib/modules/5.14.0-687.36.1.el9_8.x86_64/build/include/generated/uapi/linux/version.h:10:#define RHEL_RELEASE "687.36.1"
+/lib/modules/5.14.0-687.36.1.el9_8.x86_64/build/include/generated/autoconf.h:1261:#define CONFIG_RHEL_DIFFERENCES 1
+
