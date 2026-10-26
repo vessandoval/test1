@@ -1,3 +1,31 @@
+78- * @sa RTLNX_RHEL_MAX, RTLNX_RHEL_RANGE, RTLNX_RHEL_MAJ_PREREQ
+79- */
+80-#if defined(RHEL_MAJOR) && defined(RHEL_MINOR)
+81:# define RTLNX_RHEL_MIN(a_iMajor, a_iMinor) \
+82-     ((RHEL_MAJOR) > (a_iMajor) || ((RHEL_MAJOR) == (a_iMajor) && (RHEL_MINOR) >= (a_iMinor)))
+83-#else
+84:# define RTLNX_RHEL_MIN(a_iMajor, a_iMinor) (0)
+85-#endif
+86-
+87-/** @def RTLNX_RHEL_MAX
+88- * Require a maximum RedHat release, true for all RHEL versions below it.
+89- * @param a_iMajor      The major release number (RHEL_MAJOR).
+90- * @param a_iMinor      The minor release number (RHEL_MINOR).
+91- * @sa RTLNX_RHEL_MIN, RTLNX_RHEL_RANGE, RTLNX_RHEL_MAJ_PREREQ
+92- */
+93-#if defined(RHEL_MAJOR) && defined(RHEL_MINOR)
+94:# define RTLNX_RHEL_MAX(a_iMajor, a_iMinor) \
+95-     ((RHEL_MAJOR) < (a_iMajor) || ((RHEL_MAJOR) == (a_iMajor) && (RHEL_MINOR) < (a_iMinor)))
+96-#else
+97:# define RTLNX_RHEL_MAX(a_iMajor, a_iMinor) (0)
+98-#endif
+99-
+100-/** @def RTLNX_RHEL_RANGE
+101- * Check that it's a RedHat kernel in the given version range.
+102- * The max version is exclusive, the minimum inclusive.
+103- * @sa RTLNX_RHEL_MIN, RTLNX_RHEL_MAX, RTLNX_RHEL_MAJ_PREREQ
+
+
 grep -n -B 3 -A 6 -E 'define RTLNX_RHEL_MIN|define RTLNX_RHEL_MAX' \
   /opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxguest/include/iprt/linux/version.h
 
