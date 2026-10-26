@@ -12,6 +12,7 @@ grep -n -B 4 -A 4 'RTLNX_RHEL_RANGE' /opt/VBoxGuestAdditions-7.2.0_BETA2/src/vbo
 sudo grep -R -n -E 'RTLNX_RHEL_RANGE|RTLNX_RHEL|from_timer|timer_container_of' /opt/VBoxGuestAdditions-7.2.0_BETA2/src 2>/dev/null | head -8
 
 
+
 opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxvideo/vbox_main.c:35:#if RTLNX_VER_MIN(6,3,0) || RTLNX_RHEL_RANGE(8,9, 8,99) || RTLNX_RHEL_RANGE(9,3, 9,99)
 /opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxvideo/vbox_main.c:49:#if RTLNX_VER_MIN(5,9,0) || RTLNX_RHEL_MIN(8,4) || RTLNX_SUSE_MAJ_PREREQ(15,3)
 /opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxvideo/vbox_main.c:170:#if RTLNX_VER_MIN(4,5,0) || RTLNX_RHEL_MAJ_PREREQ(7,3)
@@ -20,3 +21,26 @@ opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxvideo/vbox_main
 /opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxvideo/vbox_main.c:207:#if RTLNX_VER_MIN(4,7,0) || RTLNX_RHEL_MAJ_PREREQ(7,4)
 /opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxvideo/vbox_main.c:228:#if RTLNX_VER_MIN(5,9,0) || RTLNX_RHEL_MIN(8,4) || RTLNX_SUSE_MAJ_PREREQ(15,3)
 /opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxvideo/vbox_main.c:240:#if RTLNX_VER_MAX(4,0,0) && !RTLNX_RHEL_MAJ_PREREQ(7,3)
+
+
+
+
+
+
+743-#if RTLNX_VER_MIN(4,15,0)
+744-/**
+745- * Timer callback function for standard timers.
+746- *
+747- * @param   pLnxTimer   Pointer to the Linux timer structure.
+748- */
+749-static void rtTimerLinuxStdCallback(struct timer_list *pLnxTimer)
+750-{
+751:# if RTLNX_VER_MIN(6,16,0)
+752-    PRTTIMERLNXSUBTIMER pSubTimer = timer_container_of(pSubTimer, pLnxTimer, u.Std.LnxTimer);
+753-# else
+754-    PRTTIMERLNXSUBTIMER pSubTimer = from_timer(pSubTimer, pLnxTimer, u.Std.LnxTimer);
+755-# endif
+756-#else
+757-/**
+758- * Timer callback function for standard timers.
+759- *
