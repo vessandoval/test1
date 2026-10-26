@@ -1,3 +1,8 @@
+grep -n -B 4 -A 8 'define RTLNX_RHEL_RANGE' \
+  /opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxguest/include/iprt/linux/version.h
+
+****************************
+
 6:echo >&2 "  ERROR: Kernel configuration is invalid.";		\
 30:/tmp/vbox.0/r0drv/linux/timer-r0drv-linux.c:754:37: error: implicit declaration of function ‘from_timer’; did you mean ‘mod_timer’? [-Werror=implicit-function-declaration]
 31:  754 |     PRTTIMERLNXSUBTIMER pSubTimer = from_timer(pSubTimer, pLnxTimer, u.Std.LnxTimer);
