@@ -1,3 +1,6 @@
+grep -n -B 3 -A 6 -E 'define RTLNX_RHEL_MIN|define RTLNX_RHEL_MAX' \
+  /opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxguest/include/iprt/linux/version.h
+
 102- * The max version is exclusive, the minimum inclusive.
 103- * @sa RTLNX_RHEL_MIN, RTLNX_RHEL_MAX, RTLNX_RHEL_MAJ_PREREQ
 104- */
