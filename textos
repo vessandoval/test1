@@ -6,3 +6,5 @@
 40:make[2]: *** [scripts/Makefile.build:250: /tmp/vbox.0/combined-os-specific.o] Error 1
 41:make[1]: *** [Makefile:1968: /tmp/vbox.0] Error 2
 42:make: *** [/tmp/vbox.0/Makefile-footer.gmk:146: vboxguest] Error 2
+
+grep -n -B 4 -A 4 'RTLNX_RHEL_RANGE' /opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxguest/r0drv/linux/fileio-r0drv-linux.c
