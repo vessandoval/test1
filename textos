@@ -1,5 +1,22 @@
-grep -n -B 4 -A 8 'define RTLNX_RHEL_RANGE' \
-  /opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxguest/include/iprt/linux/version.h
+102- * The max version is exclusive, the minimum inclusive.
+103- * @sa RTLNX_RHEL_MIN, RTLNX_RHEL_MAX, RTLNX_RHEL_MAJ_PREREQ
+104- */
+105-#if defined(RHEL_MAJOR) && defined(RHEL_MINOR)
+106:# define RTLNX_RHEL_RANGE(a_iMajorMin, a_iMinorMin,  a_iMajorMax, a_iMinorMax) \
+107-     (RTLNX_RHEL_MIN(a_iMajorMin, a_iMinorMin) && RTLNX_RHEL_MAX(a_iMajorMax, a_iMinorMax))
+108-#else
+109:# define RTLNX_RHEL_RANGE(a_iMajorMin, a_iMinorMin,  a_iMajorMax, a_iMinorMax)  (0)
+110-#endif
+111-
+112-/** @def RTLNX_RHEL_MAJ_PREREQ
+113- * Require a minimum minor release number for the given RedHat release.
+114- * @param a_iMajor      RHEL_MAJOR must _equal_ this.
+115- * @param a_iMinor      RHEL_MINOR must be greater or equal to this.
+116- * @sa RTLNX_RHEL_MIN, RTLNX_RHEL_MAX
+117- */
+
+
+grep -n -B 4 -A 8 'define RTLNX_RHEL_RANGE' /opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxguest/include/iprt/linux/version.h
 
 ****************************
 
