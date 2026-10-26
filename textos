@@ -8,3 +8,5 @@
 42:make: *** [/tmp/vbox.0/Makefile-footer.gmk:146: vboxguest] Error 2
 
 grep -n -B 4 -A 4 'RTLNX_RHEL_RANGE' /opt/VBoxGuestAdditions-7.2.0_BETA2/src/vboxguest-7.2.0_BETA2/vboxguest/r0drv/linux/fileio-r0drv-linux.c
+
+sudo grep -R -n -E 'RTLNX_RHEL_RANGE|RTLNX_RHEL|from_timer|timer_container_of' /opt/VBoxGuestAdditions-7.2.0_BETA2/src 2>/dev/null | head -8
