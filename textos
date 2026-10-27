@@ -4,6 +4,17 @@
 41:static inline int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev, const char *name)
 [ethan@redhostvems vboxguest-7.2.0_BETA2]$ grep -R -n 'drm_aperture_remove_conflicting_pci_framebuffers' \
   /usr/src/kernels/$(uname -r)/include
+[ethan@redhostvems vboxguest-7.2.0_BETA2]$ grep -R -n 'drm_aperture_remove_conflicting_pci_framebuffers' /usr/src/kernels/$(uname -r)/include
+[ethan@redhostvems vboxguest-7.2.0_BETA2]$
+
+
+
+[ethan@redhostvems vboxguest-7.2.0_BETA2]$ grep -nE 'drm_aperture_remove_conflicting_pci_framebuffers|aperture_remove_conflicting_pci_devices' \
+  /usr/src/kernels/$(uname -r)/include/linux/aperture.h
+21:int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev, const char *name);
+41:static inline int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev, const char *name)
+[ethan@redhostvems vboxguest-7.2.0_BETA2]$ grep -R -n 'drm_aperture_remove_conflicting_pci_framebuffers' \
+  /usr/src/kernels/$(uname -r)/include
 
 
 grep -nE 'drm_aperture_remove_conflicting_pci_framebuffers|aperture_remove_conflicting_pci_devices' \
