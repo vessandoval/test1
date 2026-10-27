@@ -1,3 +1,11 @@
+grep -nE 'drm_aperture_remove_conflicting_pci_framebuffers|aperture_remove_conflicting_pci_devices' \
+  /usr/src/kernels/$(uname -r)/include/linux/aperture.h
+
+grep -R -n 'drm_aperture_remove_conflicting_pci_framebuffers' \
+  /usr/src/kernels/$(uname -r)/include
+
+
+
 [ethan@redhostvems vboxguest-7.2.0_BETA2]$ grep -n -B 5 -A 8 'RTLNX_RHEL_MIN(9,7)' vboxvideo/vbox_drv.c 
 [ethan@redhostvems vboxguest-7.2.0_BETA2]$ grep -n 'aperture_remove_conflicting_pci_devices' /usr/s
 sbin/  share/ src/   
