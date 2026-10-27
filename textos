@@ -1,4 +1,14 @@
-    35	#include "vbox_drv.h"
+[ethan@redhostvems vboxguest-7.2.0_BETA2]$ grep -nE 'drm_aperture|aperture' vboxvideo/vbox_drv.c vboxvideo/vbox_main.c
+vboxvideo/vbox_drv.c:43:# include <linux/aperture.h>
+vboxvideo/vbox_drv.c:47:# include <drm/drm_aperture.h>
+vboxvideo/vbox_drv.c:96:	ret = aperture_remove_conflicting_pci_devices(pdev, driver.name);
+vboxvideo/vbox_drv.c:99:	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &driver);
+vboxvideo/vbox_drv.c:101:	ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "vboxvideofb");
+[ethan@redhostvems vboxguest-7.2.0_BETA2]$ find /usr/src/kernels/$(uname -r) -path '*/drm/*aperture.h' -o -path '*/linux/aperture.h'
+/usr/src/kernels/5.14.0-687.36.1.el9_8.x86_64/include/linux/aperture.h
+
+
+35	#include "vbox_drv.h"
     36	
     37	#include <drm/drm_crtc_helper.h>
     38	#if RTLNX_VER_MIN(5,1,0) || RTLNX_RHEL_MAJ_PREREQ(8,1)
