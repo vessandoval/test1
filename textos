@@ -1,3 +1,9 @@
+ompilation terminated.
+make[2]: *** [scripts/Makefile.build:250: /tmp/vbox.0/vbox_drv.o] Error 1
+make[1]: *** [Makefile:1968: /tmp/vbox.0] Error 2
+make: *** [/tmp/vbox.0/Makefile-footer.gmk:146: vboxvideo] Error 2
+
+
 78- * @sa RTLNX_RHEL_MAX, RTLNX_RHEL_RANGE, RTLNX_RHEL_MAJ_PREREQ
 79- */
 80-#if defined(RHEL_MAJOR) && defined(RHEL_MINOR)
