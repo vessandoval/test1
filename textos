@@ -1,3 +1,31 @@
+    85	
+    86	#if RTLNX_VER_MIN(6,0,0)
+    87		static bool fWarned = false;
+ {  88		if (!fWarned)
+    89			printk(KERN_ERR "vboxvideo: VM is using legacy graphics controller, "
+    90					"please consider to configure this guest to use VMSVGA instead\n");
+    91			fWarned = true;
+    92		}
+    93	#endif
+    94	
+    95	# if RTLNX_VER_MIN(6,13,0) && defined(CONFIG_APERTURE_HELPERS)
+    96		ret = aperture_remove_conflicting_pci_devices(pdev, driver.name);
+    97	# elif RTLNX_VER_RANGE(5,14,0, 6,13,0) || RTLNX_RHEL_RANGE(8,6, 8,99)
+    98	#  if RTLNX_VER_MIN(5,15,0) || RTLNX_RHEL_RANGE(8,7, 8,99) || RTLNX_RHEL_MIN(9,1) || RTLNX_SUSE_MAJ_PREREQ(15,4)
+    99		ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, &driver);
+   100	#  else
+   101		ret = drm_aperture_remove_conflicting_pci_framebuffers(pdev, "vboxvideofb");
+   102	#  endif
+ { 103		if (ret)
+   104			printk("unable to remove conflicting framebuffer devices\n");
+   105			return ret;
+   106		}
+   107	# endif /* >= 5.14. */
+   108	
+   109		dev = drm_dev_alloc(&driver, &pdev->dev);
+   110		if (IS_ERR(dev)) {
+
+
 [ethan@redhostvems vboxguest-7.2.0_BETA2]$ grep -nE 'drm_aperture|aperture' vboxvideo/vbox_drv.c vboxvideo/vbox_main.c
 vboxvideo/vbox_drv.c:43:# include <linux/aperture.h>
 vboxvideo/vbox_drv.c:47:# include <drm/drm_aperture.h>
