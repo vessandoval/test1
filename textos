@@ -1,3 +1,20 @@
+78- * @sa RTLNX_RHEL_MAX, RTLNX_RHEL_RANGE, RTLNX_RHEL_MAJ_PREREQ
+79- */
+80-#if defined(RHEL_MAJOR) && defined(RHEL_MINOR)
+81:# define RTLNX_RHEL_MIN(a_iMajor, a_iMinor) \
+82-     ((RHEL_MAJOR) > (a_iMajor) || ((RHEL_MAJOR) == (a_iMajor) && (RHEL_MINOR) >= (a_iMinor)))
+83-#else
+84:# define RTLNX_RHEL_MIN(a_iMajor, a_iMinor) (0)
+85-#endif
+86-
+87-/** @def RTLNX_RHEL_MAX
+88- * Require a maximum RedHat release, true for all RHEL versions below it.
+89- * @param a_iMajor      The major release number (RHEL_MAJOR).
+90- * @param a_iMinor      The minor release number (RHEL_MINOR).
+91- * @sa RTLNX_RHEL_MIN, RTLNX_RHEL_RANGE, RTLNX_RHEL_MAJ_PREREQ
+92- */
+
+
 [ethan@redhostvems vboxguest-7.2.0_BETA2]$ grep -nE 'drm_aperture_remove_conflicting_pci_framebuffers|aperture_remove_conflicting_pci_devices' \
   /usr/src/kernels/$(uname -r)/include/linux/aperture.h
 21:int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev, const char *name);
