@@ -1,4 +1,32 @@
-ompilation terminated.
+    35	#include "vbox_drv.h"
+    36	
+    37	#include <drm/drm_crtc_helper.h>
+    38	#if RTLNX_VER_MIN(5,1,0) || RTLNX_RHEL_MAJ_PREREQ(8,1)
+    39	# include <drm/drm_probe_helper.h>
+    40	#endif
+    41	
+    42	#if RTLNX_VER_MIN(6,13,0) && defined(CONFIG_APERTURE_HELPERS)
+    43	# include <linux/aperture.h>
+    44	#endif
+    45	
+    46	#if RTLNX_VER_RANGE(5,14,0, 6,13,0) || RTLNX_RHEL_RANGE(8,6, 8,99)
+    47	# include <drm/drm_aperture.h>
+    48	#endif
+    49	
+    50	#include "version-generated.h"
+    51	#include "revision-generated.h"
+    52	
+    53	/** Detect whether kernel mode setting is OFF. */
+    54	#if defined(CONFIG_VGA_CONSOLE)
+    55	# if RTLNX_VER_MIN(5,17,0) || RTLNX_RHEL_RANGE(8,7, 8,99) || RTLNX_RHEL_MIN(9,1) || RTLNX_SUSE_MAJ_PREREQ(15,5)
+    56	#  define VBOX_VIDEO_NOMODESET() drm_firmware_drivers_only() && vbox_modeset == -1
+    57	# elif RTLNX_VER_MIN(4,7,0)
+    58	#  define VBOX_VIDEO_NOMODESET() vgacon_text_force() && vbox_modeset == -1
+    59	# else /* < 4.7.0 */
+    60	# define VBOX_VIDEO_NOMODESET() 0
+
+
+compilation terminated.
 make[2]: *** [scripts/Makefile.build:250: /tmp/vbox.0/vbox_drv.o] Error 1
 make[1]: *** [Makefile:1968: /tmp/vbox.0] Error 2
 make: *** [/tmp/vbox.0/Makefile-footer.gmk:146: vboxvideo] Error 2
