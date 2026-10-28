@@ -1,3 +1,49 @@
+ethan@redhostvems vboxguest-7.2.0_BETA2]$ sed -n '45,75p' vboxguest/include/iprt/linux/version.h 
+/* We need utsrelease.h in order to detect Ubuntu kernel,
+ * i.e. check if UTS_UBUNTU_RELEASE_ABI is defined. Support kernels
+ * starting from Ubuntu 14.04 Trusty which is based on upstream
+ * kernel 3.13.x. */
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,13,0))
+# include <generated/utsrelease.h>
+# include <iprt/cdefs.h>
+#endif
+
+/** @def RTLNX_VER_MIN
+ * Evaluates to true if the linux kernel version is equal or higher to the
+ * one specfied. */
+#define RTLNX_VER_MIN(a_Major, a_Minor, a_Patch) \
+    (LINUX_VERSION_CODE >= KERNEL_VERSION(a_Major, a_Minor, a_Patch))
+
+/** @def RTLNX_VER_MAX
+ * Evaluates to true if the linux kernel version is less to the one specfied
+ * (exclusive). */
+#define RTLNX_VER_MAX(a_Major, a_Minor, a_Patch) \
+    (LINUX_VERSION_CODE < KERNEL_VERSION(a_Major, a_Minor, a_Patch))
+
+/** @def RTLNX_VER_RANGE
+ * Evaluates to true if the linux kernel version is equal or higher to the given
+ * minimum version and less (but not equal) to the maximum version (exclusive). */
+#define RTLNX_VER_RANGE(a_MajorMin, a_MinorMin, a_PatchMin,  a_MajorMax, a_MinorMax, a_PatchMax) \
+    (   LINUX_VERSION_CODE >= KERNEL_VERSION(a_MajorMin, a_MinorMin, a_PatchMin) \
+     && LINUX_VERSION_CODE <  KERNEL_VERSION(a_MajorMax, a_MinorMax, a_PatchMax) )
+
+
+/** @def RTLNX_RHEL_MIN
+ * Require a minium RedHat release.
+[ethan@redhostvems vboxguest-7.2.0_BETA2]$ sed -n '1,15p' /usr/src/kernels/$(uname -r)/include/generated/uapi/linux/version.h
+#define LINUX_VERSION_CODE 331264
+#define KERNEL_VERSION(a,b,c) (((a) << 16) + ((b) << 8) + ((c) > 255 ? 255 : (c)))
+#define LINUX_VERSION_MAJOR 5
+#define LINUX_VERSION_PATCHLEVEL 14
+#define LINUX_VERSION_SUBLEVEL 0
+#define RHEL_MAJOR 9
+#define RHEL_MINOR 8
+#define RHEL_RELEASE_VERSION(a,b) (((a) << 8) + (b))
+#define RHEL_RELEASE_CODE 2312
+#define RHEL_RELEASE "687.36.1"
+
+__________________
+
 [ethan@redhostvems vboxguest-7.2.0_BETA2]$ grep -nE 'define RTLNX_VER_(MIN|MAX)' vboxguest/include/iprt/linux/version.h 
 57:#define RTLNX_VER_MIN(a_Major, a_Minor, a_Patch) \
 63:#define RTLNX_VER_MAX(a_Major, a_Minor, a_Patch) \
