@@ -1,3 +1,59 @@
+[ethan@redhostvems vboxguest-7.2.0_BETA2]$ nl -ba vboxvideo/vbox_drv.c | sed -n '385,402p'
+   385		.fops = &vbox_fops,
+   386	#if RTLNX_VER_MAX(5,15,0) && !RTLNX_RHEL_RANGE(8,7, 8,99) && !RTLNX_RHEL_MAJ_PREREQ(9,1) && !RTLNX_SUSE_MAJ_PREREQ(15,5)
+   387		.irq_handler = vbox_irq_handler,
+   388	#endif
+   389		.name = DRIVER_NAME,
+   390		.desc = DRIVER_DESC,
+   391	#if RTLNX_VER_MAX(6,14,0)
+   392		.date = DRIVER_DATE,
+   393	#endif
+   394	#if RTLNX_VER_MIN(6,15,0)
+   395		.fbdev_probe = vboxfb_create,
+   396	#endif
+   397		.major = DRIVER_MAJOR,
+   398		.minor = DRIVER_MINOR,
+   399		.patchlevel = DRIVER_PATCHLEVEL,
+   400	
+   401	#if RTLNX_VER_MAX(4,7,0)
+   402		.gem_free_object = vbox_gem_free_object,
+
+24:/tmp/vbox.0/vbox_drv.c:395:10: error: ‘struct drm_driver’ has no member named ‘date’
+25:  395 |         .fbdev_probe = vboxfb_create,
+26-      |          ^~~~
+27-In file included from /tmp/vbox.0/vbox_drv.c:35:
+28-/tmp/vbox.0/vbox_drv.h:216:29: warning: initialization of ‘unsigned int’ from ‘char *’ makes integer from pointer without a cast [-Wint-conversion]
+29:  216 | #define DRIVER_DATE         "20130823"
+30-      |                             ^~~~~~~~~~
+31:/tmp/vbox.0/vbox_drv.c:395:17: note: in expansion of macro ‘DRIVER_DATE’
+32:  395 |         .fbdev_probe = vboxfb_create,
+33-      |                 ^~~~~~~~~~~
+34-/tmp/vbox.0/vbox_drv.h:216:29: note: (near initialization for ‘driver.driver_features’)
+35:  216 | #define DRIVER_DATE         "20130823"
+36-      |                             ^~~~~~~~~~
+37:/tmp/vbox.0/vbox_drv.c:395:17: note: in expansion of macro ‘DRIVER_DATE’
+38:  395 |         .fbdev_probe = vboxfb_create,
+39-      |                 ^~~~~~~~~~~
+40-/tmp/vbox.0/vbox_drv.h:216:29: error: initializer element is not computable at load time
+41:  216 | #define DRIVER_DATE         "20130823"
+42-      |                             ^~~~~~~~~~
+43:/tmp/vbox.0/vbox_drv.c:395:17: note: in expansion of macro ‘DRIVER_DATE’
+44:  395 |         .fbdev_probe = vboxfb_create,
+45-      |                 ^~~~~~~~~~~
+46-/tmp/vbox.0/vbox_drv.h:216:29: note: (near initialization for ‘driver.driver_features’)
+47:  216 | #define DRIVER_DATE         "20130823"
+48-      |                             ^~~~~~~~~~
+49:/tmp/vbox.0/vbox_drv.c:395:17: note: in expansion of macro ‘DRIVER_DATE’
+50:  395 |         .fbdev_probe = vboxfb_create,
+51-      |                 ^~~~~~~~~~~
+52-make[2]: *** [scripts/Makefile.build:250: /tmp/vbox.0/vbox_drv.o] Error 1
+53-make[1]: *** [Makefile:1968: /tmp/vbox.0] Error 2
+54-make: *** [/tmp/vbox.0/Makefile-footer.gmk:146: vboxvideo] Error 2
+
+
+
+***********************
+
 [ethan@redhostvems vboxguest-7.2.0_BETA2]$ nl -ba vboxvideo/vbox_drv.c | sed -n '370,410p'
    370		/* Legacy hooks, but still supported. */
    371		.load = vbox_driver_load,
