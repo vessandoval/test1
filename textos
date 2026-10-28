@@ -1,3 +1,61 @@
+[ethan@redhostvems vboxguest-7.2.0_BETA2]$ nl -ba vboxvideo/vbox_drv.c | sed -n '370,410p'
+   370		/* Legacy hooks, but still supported. */
+   371		.load = vbox_driver_load,
+   372		.unload = vbox_driver_unload,
+   373	#endif
+   374	#if RTLNX_VER_MAX(6,12,0) && !RTLNX_RHEL_RANGE(9,7, 9,99)
+   375		.lastclose = vbox_driver_lastclose,
+   376	#endif
+   377		.master_set = vbox_master_set,
+   378		.master_drop = vbox_master_drop,
+   379	#if RTLNX_VER_MIN(3,18,0) || RTLNX_RHEL_MAJ_PREREQ(7,2)
+   380	# if RTLNX_VER_MAX(4,14,0) && !RTLNX_RHEL_MAJ_PREREQ(7,5) && !RTLNX_SUSE_MAJ_PREREQ(15,1) && !RTLNX_SUSE_MAJ_PREREQ(12,5)
+   381		.set_busid = drm_pci_set_busid,
+   382	# endif
+   383	#endif
+   384	
+   385		.fops = &vbox_fops,
+   386	#if RTLNX_VER_MAX(5,15,0) && !RTLNX_RHEL_RANGE(8,7, 8,99) && !RTLNX_RHEL_MAJ_PREREQ(9,1) && !RTLNX_SUSE_MAJ_PREREQ(15,5)
+   387		.irq_handler = vbox_irq_handler,
+   388	#endif
+   389		.name = DRIVER_NAME,
+   390		.desc = DRIVER_DESC,
+   391	#if RTLNX_VER_MAX(6,14,0)
+   392		.date = DRIVER_DATE,
+   393	#endif
+   394	#if RTLNX_VER_MIN(6,15,0)
+   395		.fbdev_probe = vboxfb_create,
+   396	#endif
+   397		.major = DRIVER_MAJOR,
+   398		.minor = DRIVER_MINOR,
+   399		.patchlevel = DRIVER_PATCHLEVEL,
+   400	
+   401	#if RTLNX_VER_MAX(4,7,0)
+   402		.gem_free_object = vbox_gem_free_object,
+   403	#endif
+   404		.dumb_create = vbox_dumb_create,
+   405		.dumb_map_offset = vbox_dumb_mmap_offset,
+   406	#if RTLNX_VER_MAX(3,12,0) && !RTLNX_RHEL_MAJ_PREREQ(7,3)
+   407		.dumb_destroy = vbox_dumb_destroy,
+   408	#elif RTLNX_VER_MAX(5,12,0) && !RTLNX_RHEL_MAJ_PREREQ(8,5)
+   409		.dumb_destroy = drm_gem_dumb_destroy,
+   410	#endif
+[ethan@redhostvems vboxguest-7.2.0_BETA2]$ grep -nE 'struct drm_driver|\.date|\.driver_features|\.fbdev_probe' /usr/src/kernels/$(uname -r)/include/drm/drm_drv.h
+53: * See &drm_driver.driver_features, drm_device.driver_features and
+172: * struct drm_driver - DRM driver structure
+180:struct drm_driver {
+409:	 * &drm_device.driver_features.
+436:			   const struct drm_driver *driver,
+469:struct drm_device *drm_dev_alloc(const struct drm_driver *driver,
+473:		      const struct drm_driver *driver,
+518: * This checks @dev for driver features, see &drm_driver.driver_features,
+519: * &drm_device.driver_features, and the various &enum drm_driver_feature flags.
+537: * This checks @dev for driver features, see &drm_driver.driver_features,
+538: * &drm_device.driver_features, and the various &enum drm_driver_feature flags.
+
+
+***********************
+
 Error building the module.  Build output follows.
 make V=1 CONFIG_MODULE_SIG= CONFIG_MODULE_SIG_ALL= -C /lib/modules/5.14.0-687.36.1.el9_8.x86_64/build M=/tmp/vbox.0 SRCROOT=/tmp/vbox.0 -j1 modules
 test -e include/generated/autoconf.h -a -e include/config/auto.conf || (		\
