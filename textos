@@ -1,3 +1,19 @@
+[ethan@redhostvems vboxguest-7.2.0_BETA2]$ grep -nE 'define RTLNX_VER_(MIN|MAX)' vboxguest/include/iprt/linux/version.h 
+57:#define RTLNX_VER_MIN(a_Major, a_Minor, a_Patch) \
+63:#define RTLNX_VER_MAX(a_Major, a_Minor, a_Patch) \
+[ethan@redhostvems vboxguest-7.2.0_BETA2]$ grep -nE 'LINUX_VERSION_CODE|KERNEL_VERSION|RHEL_(MAJOR|MINOR)' \
+> /usr/src/kernels/$(uname -r)/include/generated/uapi/linux/version.h \
+> /usr/src/kernels/$(uname -r)/include/linux/version.h \
+> /usr/src/kernels/$(uname -r)/include/generated/autoconf.h
+/usr/src/kernels/5.14.0-687.36.1.el9_8.x86_64/include/generated/uapi/linux/version.h:1:#define LINUX_VERSION_CODE 331264
+/usr/src/kernels/5.14.0-687.36.1.el9_8.x86_64/include/generated/uapi/linux/version.h:2:#define KERNEL_VERSION(a,b,c) (((a) << 16) + ((b) << 8) + ((c) > 255 ? 255 : (c)))
+/usr/src/kernels/5.14.0-687.36.1.el9_8.x86_64/include/generated/uapi/linux/version.h:6:#define RHEL_MAJOR 9
+/usr/src/kernels/5.14.0-687.36.1.el9_8.x86_64/include/generated/uapi/linux/version.h:7:#define RHEL_MINOR 8
+grep: /usr/src/kernels/5.14.0-687.36.1.el9_8.x86_64/include/linux/version.h: No such file or directory
+
+
+?????????????????????????????????????????????????????
+
 [ethan@redhostvems vboxguest-7.2.0_BETA2]$ nl -ba vboxvideo/vbox_drv.c | sed -n '385,402p'
    385		.fops = &vbox_fops,
    386	#if RTLNX_VER_MAX(5,15,0) && !RTLNX_RHEL_RANGE(8,7, 8,99) && !RTLNX_RHEL_MAJ_PREREQ(9,1) && !RTLNX_SUSE_MAJ_PREREQ(15,5)
